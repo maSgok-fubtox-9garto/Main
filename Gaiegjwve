@@ -1587,7 +1587,7 @@ function MakeWindow(Configs)
       TextXAlignment = "Left",
       BackgroundTransparency = 1,
       Position = UDim2.new(0, 60, 0, 25),
-      TextColor3 = Color3.fromRGB(200, 200, 200),
+      TextColor3 = Color3.fromRGB(255, 0, 0),
       Font = Enum.Font.GothamBold,
       TextSize = 14
     })
@@ -1607,7 +1607,7 @@ function MakeWindow(Configs)
       Font = Enum.Font.GothamBold,
       TextSize = 15,
       TextColor3 = Color3.fromRGB(220, 220, 220),
-      BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+      BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     })Corner(IconLabel)
     
     local time = tick()
@@ -1619,7 +1619,7 @@ function MakeWindow(Configs)
         JoinButton.TextColor3 = Color3.fromRGB(150, 150, 150)
         task.wait(5)
         JoinButton.Text = "نسخ"
-        JoinButton.BackgroundColor3 = Color3.fromRGB(50, 200, 50)
+        JoinButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         JoinButton.TextColor3 = Color3.fromRGB(220, 220, 220)
       end
     end)
