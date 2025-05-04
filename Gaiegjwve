@@ -1061,7 +1061,7 @@ function MakeWindow(Configs)
     local TextBox = Create("TextBox", Frame, {
       Size = UDim2.new(0, 120, 0, 20),
       Position = UDim2.new(0, 15, 0, 2.5),
-      TextColor3 = Color3.fromRGB(255, 255, 255)
+      TextColor3 = Configs_HUB.Cor_Text,
       Text = Default,
       ClearTextOnFocus = ClearText,
       PlaceholderText = placeholderText,
@@ -1274,7 +1274,7 @@ function MakeWindow(Configs)
     })
     
     local Arrow = Create("ImageLabel", TextButton, {
-      Image = "rbxassetid://6031090990",
+      Image = "http://www.roblox.com/asset/?id=4560909609",
       Size = UDim2.new(0, 25, 0, 25),
       Position = UDim2.new(0, 5, 0, 0),
       BackgroundTransparency = 1
