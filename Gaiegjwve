@@ -1061,7 +1061,7 @@ function MakeWindow(Configs)
     local TextBox = Create("TextBox", Frame, {
       Size = UDim2.new(0, 120, 0, 20),
       Position = UDim2.new(0, 15, 0, 2.5),
-      TextColor3 = Configs_HUB.Cor_Text,
+      TextColor3 = Color3.fromRGB(255, 255, 255)
       Text = Default,
       ClearTextOnFocus = ClearText,
       PlaceholderText = placeholderText,
