@@ -932,7 +932,7 @@ function MakeWindow(Configs)
     })Corner(Slider)
     
     local SliderBar2 = Create("Frame", SliderBar1, {
-      BackgroundColor3 = Color3.fromRGB(30, 140, 200),
+      BackgroundColor3 = Color3.fromRGB(0, 255, 255),
       Size = UDim2.new(0, Slider.Position.X.Offset, 1, 0)
     })Corner(SliderBar2)
     
