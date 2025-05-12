@@ -1087,7 +1087,7 @@ function MakeWindow(Configs)
     end)
   end
   
-  function AddColorPicker(parent, Configs)
+    function AddColorPicker(parent, Configs)
     local name = Configs.Name or "Color Picker"
     local Default = Configs.Default or Color3.fromRGB(0, 0, 200)
     local Callback = Configs.Callback or function() end
@@ -1149,6 +1149,18 @@ function MakeWindow(Configs)
       })
     })local SavePos2 = Create("Frame", grade, {Visible = false, Size = UDim2.new(1, 0, 0, 0)})
     
+    -- إضافة زر Rainbow
+    local RainbowButton = Create("TextButton", TextButton, {
+        Size = UDim2.new(0, 70, 0, 20),
+        Position = UDim2.new(0.5, -35, 0, 110),
+        Text = "Rainbow",
+        Font = Configs_HUB.Text_Font,
+        TextSize = 12,
+        TextColor3 = Color3.fromRGB(255, 255, 255),
+        BackgroundColor3 = Color3.fromRGB(50, 50, 50),
+        Visible = false
+    })Corner(RainbowButton)Stroke(RainbowButton)
+    
     local A_1 = Create("Frame", TextButton, {
       Size = UDim2.new(1, 0, 0, 0),
       Position = UDim2.new(0, 0, 0, 30),
@@ -1183,7 +1195,10 @@ function MakeWindow(Configs)
       CreateTween(Select1, "Position", UDim2.new(0, 0, 0, mouse - savepos), 0.3, false)
     end)
     
-    local function callback()Callback(Color3.fromHSV(ColorH, ColorS, ColorV))end
+    local function callback()
+        Callback(Color3.fromHSV(ColorH, ColorS, ColorV))
+    end
+    
     local function updcolorpicker()
       ColorH = tonumber(Select1.Position.Y.Offset) / 80
       ColorS = tonumber(215 - Select2.Position.X.Offset) / 215
@@ -1192,6 +1207,37 @@ function MakeWindow(Configs)
       picker.BackgroundColor3 = Color3.fromHSV(ColorH, ColorS, ColorV)
       callback()
     end
+    
+    -- متغيرات ومهام Rainbow
+    local rainbowEnabled = false
+    local rainbowTask = nil
+    
+    local function toggleRainbow()
+        rainbowEnabled = not rainbowEnabled
+        RainbowButton.Text = rainbowEnabled and "Stop Rainbow" or "Rainbow"
+        RainbowButton.BackgroundColor3 = rainbowEnabled and Color3.fromRGB(255, 0, 0) or Color3.fromRGB(50, 50, 50)
+        
+        if rainbowEnabled then
+            rainbowTask = task.spawn(function()
+                while rainbowEnabled do
+                    for hue = 0, 1, 0.01 do
+                        if not rainbowEnabled then break end
+                        ColorH = hue
+                        Select1.Position = UDim2.new(0, 0, 0, hue * 80)
+                        updcolorpicker()
+                        task.wait(0.05)
+                    end
+                end
+            end)
+        else
+            if rainbowTask then
+                task.cancel(rainbowTask)
+                rainbowTask = nil
+            end
+        end
+    end
+    
+    RainbowButton.MouseButton1Click:Connect(toggleRainbow)
     
     updcolorpicker()
     
@@ -1216,11 +1262,17 @@ function MakeWindow(Configs)
           UI_Grade.Visible = true
           A_1.Visible = true
           grade.Visible = true
+          RainbowButton.Visible = true
         else
           picker.Position = UDim2.new(0, 5, 0, 2.5)
           UI_Grade.Visible = false
           A_1.Visible = false
           grade.Visible = false
+          RainbowButton.Visible = false
+          -- إيقاف Rainbow عند إغلاق منتقي الألوان
+          if rainbowEnabled then
+              toggleRainbow()
+          end
         end
       end
     end)
@@ -1236,8 +1288,7 @@ function MakeWindow(Configs)
         {Size = UDim2.new(1, 0, 0, 25)})tween:play()tween.Completed:Wait()
       end
     end)
-  end
-  
+  en
   function AddDropdown(parent, Configs)
     local DropdownName = Configs.Name or "Dropdown!!"
     local Default = Configs.Default or "TextBox"
