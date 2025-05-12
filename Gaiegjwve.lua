@@ -5,7 +5,7 @@ local Configs_HUB = {
     Cor_Text = Color3.fromRGB(255, 255, 255),       -- أبيض ناصع للنصوص الرئيسية
     Cor_DarkText = Color3.fromRGB(180, 180, 180),   -- رمادي فاتح للنصوص الثانوية
     Corner_Radius = UDim.new(0, 6),                 -- نصف قطر زوايا أكبر قليلاً
-    Text_Font = Enum.Font.FredokaOne                -- خط أنيق
+    Text_Font = Enum.Font.SourceSansBold                -- خط أنيق
 }
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
