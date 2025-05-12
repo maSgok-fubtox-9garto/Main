@@ -1561,7 +1561,7 @@ function MakeWindow(Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
-    local LuckText = Configs[4] or Configs.LuckText or "حظا سعيدا معنا!" -- إضافة نص الحظ
+    local LuckText = Configs[4] or Configs.LuckText or "كل شهر يغير المفتاح ادخل قبل لا يروح عليك" 
     
     local Frame = Create("Frame", parent, {
         Size = UDim2.new(1, 0, 0, 140), -- زيادة الارتفاع لاستيعاب نص الحظ
