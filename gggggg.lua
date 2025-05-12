@@ -1086,11 +1086,7 @@ function MakeWindow(Configs)
       Callback(TextBox.Text)
     end)
   end
-      
-    
-    end)
-    return {ScrollBar, Default, Callback, DefaultText}
-  end
+          
   function UpdateDropdown(Dropdown, NewOptions)
     local ScrollBar = Dropdown[1]
     local Default = Dropdown[2]
