@@ -1557,13 +1557,14 @@ function MakeWindow(Configs)
     Section.Text = NewName
   end
   
-  function AddDiscord(parent, Configs)
+    function AddDiscord(parent, Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
+    local LuckText = Configs[4] or Configs.LuckText or "حظا سعيدا معنا!" -- إضافة نص الحظ
     
     local Frame = Create("Frame", parent, {
-        Size = UDim2.new(1, 0, 0, 110),
+        Size = UDim2.new(1, 0, 0, 140), -- زيادة الارتفاع لاستيعاب نص الحظ
         BackgroundColor3 = Color3.fromRGB(30, 30, 30),
         Name = "Frame",
         AutomaticSize = "Y"
@@ -1587,6 +1588,18 @@ function MakeWindow(Configs)
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 60, 0, 25),
         TextColor3 = Color3.fromRGB(255, 0, 0),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14
+    })
+    
+    -- إضافة نص الحظ تحت العنوان
+    local LuckLabel = Create("TextLabel", Frame, {
+        Size = UDim2.new(1, -60, 0, 25),
+        Text = LuckText,
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 60, 0, 50),
+        TextColor3 = Color3.fromRGB(0, 255, 0), -- لون أخضر للحظ
         Font = Enum.Font.GothamBold,
         TextSize = 14
     })
