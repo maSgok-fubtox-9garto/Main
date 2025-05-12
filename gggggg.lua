@@ -1,11 +1,11 @@
 local Configs_HUB = {
-  Cor_Hub = Color3.fromRGB(0, 0, 0),          -- أسود داكن للخلفية الرئيسية
-  Cor_Options = Color3.fromRGB(20, 20, 20),   -- أسود فاتح قليلاً للخيارات
-  Cor_Stroke = Color3.fromRGB(255, 0, 0),     -- أحمر ساطع للحدود
-  Cor_Text = Color3.fromRGB(255, 255, 255),   -- أبيض للنصوص الأساسية
-  Cor_DarkText = Color3.fromRGB(200, 200, 200), -- رمادي فاتح للنصوص الثانوية
-  Corner_Radius = UDim.new(0,4),              -- نصف قطر الزوايا
-  Text_Font = Enum.Font.FredokaOne            -- الخط
+  Cor_Hub = Color3.fromRGB(25, 25, 35),           -- لون خلفية داكن مزرق
+  Cor_Options = Color3.fromRGB(40, 40, 55),       -- لون خيارات أفتح قليلاً
+  Cor_Stroke = Color3.fromRGB(0, 150, 255),       -- إطار أزرق لامع بدلاً من الأحمر
+  Cor_Text = Color3.fromRGB(255, 255, 255),       -- نص أبيض نقي
+  Cor_DarkText = Color3.fromRGB(180, 180, 200),   -- نص ثانوي أزرق فاتح
+  Corner_Radius = UDim.new(0, 6),                 -- زوايا أكثر استدارة قليلاً
+  Text_Font = Enum.Font.GothamBold                -- خط عصري
 }
 local CoreGui = game:GetService("CoreGui")
 local TweenService = game:GetService("TweenService")
