@@ -1607,9 +1607,8 @@ function MakeWindow(Configs)
         TextSize = 15,
         TextColor3 = Color3.fromRGB(220, 220, 220),
         BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    }) Corner(JoinButton) -- تم تصحيح هذا السطر ليكون JoinButton بدلاً من IconLabel
+    }) Corner(JoinButton)
     
-    -- إنشاء إشعار النسخ
     local Notification = Create("TextLabel", parent, {
         Size = UDim2.new(0, 200, 0, 40),
         Position = UDim2.new(0.5, -100, 1, -50),
@@ -1630,16 +1629,13 @@ function MakeWindow(Configs)
             setclipboard(DiscordLink) 
             ClickConter = ClickConter + 1
             
-            -- عرض الإشعار
             Notification.Visible = true
             Notification.Position = UDim2.new(0.5, -100, 1, -50)
             
-            -- تحريك الإشعار بسلاسة
             local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
             local tween = game:GetService("TweenService"):Create(Notification, tweenInfo, {Position = UDim2.new(0.5, -100, 1, -100)})
             tween:Play()
             
-            -- إخفاء الإشعار بعد 3 ثواني
             task.delay(3, function()
                 local tweenOut = game:GetService("TweenService"):Create(Notification, tweenInfo, {Position = UDim2.new(0.5, -100, 1, -50)})
                 tweenOut:Play()
