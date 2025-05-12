@@ -1561,66 +1561,109 @@ function MakeWindow(Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
+    local LuckText = Configs[4] or Configs.LuckText or "كل شهر يغير المفتاح ادخل قبل لا يروح عليك" 
     
     local Frame = Create("Frame", parent, {
-      Size = UDim2.new(1, 0, 0, 110),
-      BackgroundColor3 = Color3.fromRGB(30, 30, 30),
-      Name = "Frame",
-      AutomaticSize = "Y"
+        Size = UDim2.new(1, 0, 0, 140), -- زيادة الارتفاع لاستيعاب نص الحظ
+        BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+        Name = "Frame",
+        AutomaticSize = "Y"
     })
     
     local LinkLabel = Create("TextLabel", Frame, {
-      Size = UDim2.new(1, 0, 0, 25),
-      Text = DiscordLink,
-      TextXAlignment = "Left",
-      BackgroundTransparency = 1,
-      Position = UDim2.new(0, 12, 0, 0),
-      TextColor3 = Color3.fromRGB(0, 120, 255),
-      Font = Enum.Font.GothamBold,
-      TextSize = 14
+        Size = UDim2.new(1, 0, 0, 25),
+        Text = DiscordLink,
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 12, 0, 0),
+        TextColor3 = Color3.fromRGB(0, 120, 255),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14
     })
     
     local TitleLabel = Create("TextLabel", Frame, {
-      Size = UDim2.new(1, 0, 0, 25),
-      Text = DiscordTitle,
-      TextXAlignment = "Left",
-      BackgroundTransparency = 1,
-      Position = UDim2.new(0, 60, 0, 25),
-      TextColor3 = Color3.fromRGB(255, 0, 0),
-      Font = Enum.Font.GothamBold,
-      TextSize = 14
+        Size = UDim2.new(1, 0, 0, 25),
+        Text = DiscordTitle,
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 60, 0, 25),
+        TextColor3 = Color3.fromRGB(255, 0, 0),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14
+    })
+    
+    -- إضافة نص الحظ تحت العنوان
+    local LuckLabel = Create("TextLabel", Frame, {
+        Size = UDim2.new(1, -60, 0, 25),
+        Text = LuckText,
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 60, 0, 50),
+        TextColor3 = Color3.fromRGB(0, 255, 0), -- لون أخضر للحظ
+        Font = Enum.Font.GothamBold,
+        TextSize = 14
     })
     
     local IconLabel = Create("ImageLabel", Frame, {
-      Size = UDim2.new(0, 40, 0, 40),
-      AnchorPoint = Vector2.new(0, 0.5),
-      Position = UDim2.new(0, 12, 0.45, 0),
-      Image = DiscordIcon
-    })Corner(IconLabel)
+        Size = UDim2.new(0, 40, 0, 40),
+        AnchorPoint = Vector2.new(0, 0.5),
+        Position = UDim2.new(0, 12, 0.45, 0),
+        Image = DiscordIcon
+    }) Corner(IconLabel)
     
     local JoinButton = Create("TextButton", Frame, {
-      Size = UDim2.new(1, -24, 0, 25),
-      AnchorPoint = Vector2.new(0.5, 1),
-      Position = UDim2.new(0.5, 0, 1, -8),
-      Text = "نسخ القناه",
-      Font = Enum.Font.GothamBold,
-      TextSize = 15,
-      TextColor3 = Color3.fromRGB(220, 220, 220),
-      BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-    })Corner(IconLabel)
+        Size = UDim2.new(1, -24, 0, 25),
+        AnchorPoint = Vector2.new(0.5, 1),
+        Position = UDim2.new(0.5, 0, 1, -8),
+        Text = "نسخ الرابط",
+        Font = Enum.Font.GothamBold,
+        TextSize = 15,
+        TextColor3 = Color3.fromRGB(220, 220, 220),
+        BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    }) Corner(JoinButton)
+    
+    local Notification = Create("TextLabel", parent, {
+        Size = UDim2.new(0, 200, 0, 40),
+        Position = UDim2.new(0.5, -100, 1, -50),
+        BackgroundColor3 = Color3.fromRGB(255, 0, 0),
+        Text = "تم نسخ الرابط بنجاح!",
+        TextColor3 = Color3.fromRGB(255, 0, 0),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14,
+        Visible = false,
+        AnchorPoint = Vector2.new(0.5, 1)
+    }) Corner(Notification)
     
     local time = tick()
     ClickConter = 0
     JoinButton.MouseButton1Click:Connect(function()
-      if ClickConter == 0 or tick() - time > 5 then time = tick() setclipboard(DiscordLink) ClickConter = ClickConter + 1
-        JoinButton.Text = "تم النسخ"
-        JoinButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-        JoinButton.TextColor3 = Color3.fromRGB(150, 150, 150)
-        task.wait(5)
-        JoinButton.Text = "نسخ"
-        JoinButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        JoinButton.TextColor3 = Color3.fromRGB(220, 220, 220)
-      end
+        if ClickConter == 0 or tick() - time > 5 then 
+            time = tick() 
+            setclipboard(DiscordLink) 
+            ClickConter = ClickConter + 1
+            
+            Notification.Visible = true
+            Notification.Position = UDim2.new(0.5, -100, 1, -50)
+            
+            local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+            local tween = game:GetService("TweenService"):Create(Notification, tweenInfo, {Position = UDim2.new(0.5, -100, 1, -100)})
+            tween:Play()
+            
+            task.delay(3, function()
+                local tweenOut = game:GetService("TweenService"):Create(Notification, tweenInfo, {Position = UDim2.new(0.5, -100, 1, -50)})
+                tweenOut:Play()
+                tweenOut.Completed:Wait()
+                Notification.Visible = false
+            end)
+            
+            JoinButton.Text = "تم النسخ"
+            JoinButton.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
+            JoinButton.TextColor3 = Color3.fromRGB(150, 150, 150)
+            task.wait(5)
+            JoinButton.Text = "نسخ الرابط"
+            JoinButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+            JoinButton.TextColor3 = Color3.fromRGB(220, 220, 220)
+        end
     end)
   end
   return Menu
