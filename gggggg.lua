@@ -1613,7 +1613,7 @@ function MakeWindow(Configs)
     local Notification = Create("TextLabel", parent, {
         Size = UDim2.new(0, 200, 0, 40),
         Position = UDim2.new(0.5, -100, 1, -50),
-        BackgroundColor3 = Color3.fromRGB(40, 40, 40),
+        BackgroundColor3 = Color3.fromRGB(255, 0, 0),
         Text = "تم نسخ الرابط بنجاح!",
         TextColor3 = Color3.fromRGB(255, 255, 255),
         Font = Enum.Font.GothamBold,
