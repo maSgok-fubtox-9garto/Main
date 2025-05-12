@@ -1,7 +1,7 @@
 local Configs_HUB = {
   Cor_Hub = Color3.fromRGB(30, 20, 25),           -- خلفية بنفسجية داكنة
   Cor_Options = Color3.fromRGB(50, 35, 45),       -- خيارات أفتح
-  Cor_Stroke = Color3.fromRGB(255, 100, 150),     -- إطار وردي
+  Cor_Stroke = Color3.fromRGB(255, 0, 0),     -- إطار وردي
   Cor_Text = Color3.fromRGB(255, 220, 230),       -- نص وردي فاتح
   Cor_DarkText = Color3.fromRGB(200, 170, 180),   -- نص ثانوي
   Corner_Radius = UDim.new(0, 5),
