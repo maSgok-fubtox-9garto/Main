@@ -3,7 +3,7 @@ local Configs_HUB = {
   Cor_Options = Color3.fromRGB(15, 15, 15),
   Cor_Stroke = Color3.fromRGB(255, 5, 5),
   Cor_Text = Color3.fromRGB(240, 240, 240),
-  Cor_DarkText = Color3.fromRGB(22, 22, 26),
+  Cor_DarkText = Color3.fromRGB(255, 255, 255),
   Corner_Radius = UDim.new(0,4),
   Text_Font = Enum.Font.FredokaOne
 }
