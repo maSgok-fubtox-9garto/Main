@@ -1038,52 +1038,69 @@ function MakeWindow(Configs)
     local placeholderText = Configs.PlaceholderText or "TextBox"
     local ClearText = Configs.ClearText or false
     local Callback = Configs.Callback or function() end
+    local TypewriterDelay = Configs.TypewriterDelay or 5 -- تأخير الكتابة بالثواني
     
     local Frame = Create("Frame", parent, {
-      Size = UDim2.new(1, 0, 0, 25),
-      BackgroundColor3 = Configs_HUB.Cor_Options,
-      Name = "Frame"
+        Size = UDim2.new(1, 0, 0, 25),
+        BackgroundColor3 = Configs_HUB.Cor_Options,
+        Name = "Frame"
     })Corner(Frame)Stroke(Frame)
     
     local TextLabel = Create("TextButton", Frame, {
-      TextSize = 12,
-      TextColor3 = Configs_HUB.Cor_Text,
-      Text = TextBoxName,
-      Size = UDim2.new(1, 0, 1, 0),
-      Position = UDim2.new(0, 150, 0, 0),
-      BackgroundTransparency = 1,
-      TextXAlignment = "Left",
-      Font = Configs_HUB.Text_Font
+        TextSize = 12,
+        TextColor3 = Configs_HUB.Cor_Text,
+        Text = TextBoxName,
+        Size = UDim2.new(1, 0, 1, 0),
+        Position = UDim2.new(0, 150, 0, 0),
+        BackgroundTransparency = 1,
+        TextXAlignment = "Left",
+        Font = Configs_HUB.Text_Font
     })
     TextSetColor(TextLabel)
     
     local TextBox = Create("TextBox", Frame, {
-      Size = UDim2.new(0, 120, 0, 20),
-      Position = UDim2.new(0, 15, 0, 2.5),
-      TextColor3 = Configs_HUB.Cor_Text,
-      Text = Default,
-      ClearTextOnFocus = ClearText,
-      PlaceholderText = placeholderText,
-      TextScaled = true,
-      Font = Configs_HUB.Text_Font,
-      BackgroundTransparency = 1
+        Size = UDim2.new(0, 120, 0, 20),
+        Position = UDim2.new(0, 15, 0, 2.5),
+        TextColor3 = Configs_HUB.Cor_Text,
+        Text = "",
+        ClearTextOnFocus = ClearText,
+        PlaceholderText = placeholderText,
+        TextScaled = true,
+        Font = Configs_HUB.Text_Font,
+        BackgroundTransparency = 1
     })
     
     local Line = Create("Frame", TextBox, {
-      Size = UDim2.new(1, 0, 0, 1),
-      Position = UDim2.new(0.5, 0, 1, 0),
-      AnchorPoint = Vector2.new(0.5, 0.5),
-      BackgroundColor3 = Configs_HUB.Cor_Stroke,
-      BorderSizePixel = 0
+        Size = UDim2.new(1, 0, 0, 1),
+        Position = UDim2.new(0.5, 0, 1, 0),
+        AnchorPoint = Vector2.new(0.5, 0.5),
+        BackgroundColor3 = Configs_HUB.Cor_Stroke,
+        BorderSizePixel = 0
     })
     
+    -- وظيفة تأثير الكتابة
+    local function TypewriterEffect(text)
+        TextBox.Text = ""
+        local currentText = ""
+        for i = 1, #text do
+            currentText = currentText .. string.sub(text, i, i)
+            TextBox.Text = currentText
+            wait(TypewriterDelay / #text)
+        end
+    end
+    
+    -- تطبيق تأثير الكتابة على النص الافتراضي
+    if Default ~= "" then
+        TypewriterEffect(Default)
+    end
+    
     TextBox.MouseEnter:Connect(function()
-      CreateTween(Line, "Size", UDim2.new(0, 0, 0, 1), 0.3, true)
-      CreateTween(Line, "Size", UDim2.new(1, 0, 0, 1), 0.3, true)
+        CreateTween(Line, "Size", UDim2.new(0, 0, 0, 1), 0.3, true)
+        CreateTween(Line, "Size", UDim2.new(1, 0, 0, 1), 0.3, true)
     end)
     
     TextBox.FocusLost:Connect(function()
-      Callback(TextBox.Text)
+        Callback(TextBox.Text)
     end)
   end
           
