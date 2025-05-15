@@ -1292,14 +1292,14 @@ function MakeWindow(Configs)
   end
   
                 
-                        function AddDiscord(parent, Configs)
+                         function AddDiscord(parent, Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
     local LuckText = Configs[4] or Configs.LuckText or "كل شهر يغير المفتاح ادخل قبل لا يروح عليك" 
     
     local Frame = Create("Frame", parent, {
-        Size = UDim2.new(1, 0, 0, 170), -- زيادة الارتفاع لاستيعاب نص الحظ وإحصائية اللاعبين
+        Size = UDim2.new(1, 0, 0, 200), -- زيادة الارتفاع لاستيعاب النصوص الجديدة
         BackgroundColor3 = Color3.fromRGB(30, 30, 30),
         Name = "Frame",
         AutomaticSize = "Y"
@@ -1334,7 +1334,7 @@ function MakeWindow(Configs)
         TextXAlignment = "Left",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 60, 0, 50),
-        TextColor3 = Color3.fromRGB(0, 255, 0), -- لون أخضر للحظ
+        TextColor3 = Color3.fromRGB(0, 255, 0),
         Font = Enum.Font.GothamBold,
         TextSize = 14
     })
@@ -1346,7 +1346,19 @@ function MakeWindow(Configs)
         TextXAlignment = "Left",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 60, 0, 75),
-        TextColor3 = Color3.fromRGB(0, 255, 0), -- لون أخضر للإحصائية
+        TextColor3 = Color3.fromRGB(0, 255, 0),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14
+    })
+    
+    -- إضافة إحصائية الفريمات (FPS) باللون الأخضر
+    local FPSLabel = Create("TextLabel", Frame, {
+        Size = UDim2.new(1, -60, 0, 25),
+        Text = "الفريمات: 0",
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 60, 0, 100),
+        TextColor3 = Color3.fromRGB(0, 255, 0),
         Font = Enum.Font.GothamBold,
         TextSize = 14
     })
@@ -1381,9 +1393,24 @@ function MakeWindow(Configs)
         AnchorPoint = Vector2.new(0.5, 1)
     }) Corner(Notification)
     
-    -- تحديث عدد اللاعبين كل 5 ثواني
+    -- متغيرات لقياس الفريمات
+    local lastTick = 0
+    local frameCount = 0
+    local fps = 0
+    
+    -- تحديث عدد اللاعبين والفريمات كل إطار
     game:GetService("RunService").Heartbeat:Connect(function()
+        -- تحديث عدد اللاعبين
         PlayerStatsLabel.Text = "اللاعبين في السيرفر: " .. #game:GetService("Players"):GetPlayers()
+        
+        -- حساب الفريمات
+        frameCount = frameCount + 1
+        if tick() - lastTick >= 1 then
+            fps = math.floor(frameCount / (tick() - lastTick))
+            frameCount = 0
+            lastTick = tick()
+            FPSLabel.Text = "الفريمات: " .. fps
+        end
     end)
     
     local time = tick()
