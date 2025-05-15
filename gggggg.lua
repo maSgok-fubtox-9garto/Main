@@ -1291,20 +1291,29 @@ function MakeWindow(Configs)
     Section.Text = NewName
   end
   
-    function AddDiscord(parent, Configs)
+                
+            function AddDiscord(parent, Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
     local LuckText = Configs[4] or Configs.LuckText or "كل شهر يغير المفتاح ادخل قبل لا يروح عليك" 
     
-    local Frame = Create("Frame", parent, {
-        Size = UDim2.new(1, 0, 0, 140), -- زيادة الارتفاع لاستيعاب نص الحظ
+    -- إنشاء إطار رئيسي يحتوي على كل شيء
+    local MainFrame = Create("Frame", parent, {
+        Size = UDim2.new(1, 0, 0, 280), -- زيادة الارتفاع لاستيعاب الإحصائيات
         BackgroundColor3 = Color3.fromRGB(30, 30, 30),
-        Name = "Frame",
+        Name = "MainFrame",
         AutomaticSize = "Y"
     })
     
-    local LinkLabel = Create("TextLabel", Frame, {
+    -- إطار الديسكورد
+    local DiscordFrame = Create("Frame", MainFrame, {
+        Size = UDim2.new(1, 0, 0, 140),
+        BackgroundColor3 = Color3.fromRGB(30, 30, 30),
+        Name = "DiscordFrame"
+    })
+    
+    local LinkLabel = Create("TextLabel", DiscordFrame, {
         Size = UDim2.new(1, 0, 0, 25),
         Text = DiscordLink,
         TextXAlignment = "Left",
@@ -1315,7 +1324,7 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
-    local TitleLabel = Create("TextLabel", Frame, {
+    local TitleLabel = Create("TextLabel", DiscordFrame, {
         Size = UDim2.new(1, 0, 0, 25),
         Text = DiscordTitle,
         TextXAlignment = "Left",
@@ -1326,26 +1335,25 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
-    -- إضافة نص الحظ تحت العنوان
-    local LuckLabel = Create("TextLabel", Frame, {
+    local LuckLabel = Create("TextLabel", DiscordFrame, {
         Size = UDim2.new(1, -60, 0, 25),
         Text = LuckText,
         TextXAlignment = "Left",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 60, 0, 50),
-        TextColor3 = Color3.fromRGB(0, 255, 0), -- لون أخضر للحظ
+        TextColor3 = Color3.fromRGB(0, 255, 0),
         Font = Enum.Font.GothamBold,
         TextSize = 14
     })
     
-    local IconLabel = Create("ImageLabel", Frame, {
+    local IconLabel = Create("ImageLabel", DiscordFrame, {
         Size = UDim2.new(0, 40, 0, 40),
         AnchorPoint = Vector2.new(0, 0.5),
         Position = UDim2.new(0, 12, 0.45, 0),
         Image = DiscordIcon
     }) Corner(IconLabel)
     
-    local JoinButton = Create("TextButton", Frame, {
+    local JoinButton = Create("TextButton", DiscordFrame, {
         Size = UDim2.new(1, -24, 0, 25),
         AnchorPoint = Vector2.new(0.5, 1),
         Position = UDim2.new(0.5, 0, 1, -8),
@@ -1355,6 +1363,86 @@ function MakeWindow(Configs)
         TextColor3 = Color3.fromRGB(220, 220, 220),
         BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     }) Corner(JoinButton)
+    
+    -- إطار الإحصائيات
+    local StatsFrame = Create("Frame", MainFrame, {
+        Size = UDim2.new(1, 0, 0, 120),
+        Position = UDim2.new(0, 0, 0, 150),
+        BackgroundColor3 = Color3.fromRGB(40, 40, 40),
+        Name = "StatsFrame"
+    }) Corner(StatsFrame, 8)
+    
+    local StatsTitle = Create("TextLabel", StatsFrame, {
+        Size = UDim2.new(1, 0, 0, 30),
+        Text = "إحصائيات السيرفر",
+        TextColor3 = Color3.fromRGB(255, 255, 255),
+        BackgroundTransparency = 1,
+        Font = Enum.Font.GothamBold,
+        TextSize = 16
+    })
+    
+    -- إحصائيات اللاعبين
+    local PlayersLabel = Create("TextLabel", StatsFrame, {
+        Size = UDim2.new(1, -20, 0, 25),
+        Position = UDim2.new(0, 10, 0, 35),
+        Text = "عدد اللاعبين: " .. #game:GetService("Players"):GetPlayers(),
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        TextColor3 = Color3.fromRGB(200, 200, 200),
+        Font = Enum.Font.Gotham,
+        TextSize = 14
+    })
+    
+    -- إحصائيات البينج
+    local PingLabel = Create("TextLabel", StatsFrame, {
+        Size = UDim2.new(1, -20, 0, 25),
+        Position = UDim2.new(0, 10, 0, 60),
+        Text = "سرعة الاتصال: جاري الحساب...",
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        TextColor3 = Color3.fromRGB(200, 200, 200),
+        Font = Enum.Font.Gotham,
+        TextSize = 14
+    })
+    
+    -- إحصائيات وقت التشغيل
+    local UptimeLabel = Create("TextLabel", StatsFrame, {
+        Size = UDim2.new(1, -20, 0, 25),
+        Position = UDim2.new(0, 10, 0, 85),
+        Text = "وقت التشغيل: جاري الحساب...",
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        TextColor3 = Color3.fromRGB(200, 200, 200),
+        Font = Enum.Font.Gotham,
+        TextSize = 14
+    })
+    
+    -- تحديث الإحصائيات باستمرار
+    local startTime = os.time()
+    
+    game:GetService("RunService").Heartbeat:Connect(function()
+        -- تحديث عدد اللاعبين
+        PlayersLabel.Text = "عدد اللاعبين: " .. #game:GetService("Players"):GetPlayers()
+        
+        -- حساب البينج (سرعة الاتصال)
+        local ping = math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())
+        local pingStatus
+        if ping < 100 then
+            pingStatus = "سريع (" .. ping .. "ms)"
+        elseif ping < 200 then
+            pingStatus = "متوسط (" .. ping .. "ms)"
+        else
+            pingStatus = "بطيء (" .. ping .. "ms)"
+        end
+        PingLabel.Text = "سرعة الاتصال: " .. pingStatus
+        
+        -- حساب وقت التشغيل
+        local uptime = os.time() - startTime
+        local hours = math.floor(uptime / 3600)
+        local minutes = math.floor((uptime % 3600) / 60)
+        local seconds = uptime % 60
+        UptimeLabel.Text = string.format("وقت التشغيل: %02d:%02d:%02d", hours, minutes, seconds)
+    end)
     
     local Notification = Create("TextLabel", parent, {
         Size = UDim2.new(0, 200, 0, 40),
@@ -1399,6 +1487,6 @@ function MakeWindow(Configs)
             JoinButton.TextColor3 = Color3.fromRGB(220, 220, 220)
         end
     end)
-  end
-  return Menu
+end
+return Menu
 end
