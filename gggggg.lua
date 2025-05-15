@@ -1292,14 +1292,14 @@ function MakeWindow(Configs)
   end
   
                 
-                         function AddDiscord(parent, Configs)
+                                 function AddDiscord(parent, Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
     local LuckText = Configs[4] or Configs.LuckText or "كل شهر يغير المفتاح ادخل قبل لا يروح عليك" 
     
     local Frame = Create("Frame", parent, {
-        Size = UDim2.new(1, 0, 0, 200), -- زيادة الارتفاع لاستيعاب النصوص الجديدة
+        Size = UDim2.new(1, 0, 0, 225), -- زيادة الارتفاع لاستيعاب النصوص الجديدة
         BackgroundColor3 = Color3.fromRGB(30, 30, 30),
         Name = "Frame",
         AutomaticSize = "Y"
@@ -1363,6 +1363,18 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
+    -- إضافة إحصائية البينج (Ping) باللون الأخضر
+    local PingLabel = Create("TextLabel", Frame, {
+        Size = UDim2.new(1, -60, 0, 25),
+        Text = "البينج (Ping): 0ms",
+        TextXAlignment = "Left",
+        BackgroundTransparency = 1,
+        Position = UDim2.new(0, 60, 0, 125),
+        TextColor3 = Color3.fromRGB(0, 255, 0),
+        Font = Enum.Font.GothamBold,
+        TextSize = 14
+    })
+    
     local IconLabel = Create("ImageLabel", Frame, {
         Size = UDim2.new(0, 40, 0, 40),
         AnchorPoint = Vector2.new(0, 0.5),
@@ -1393,12 +1405,12 @@ function MakeWindow(Configs)
         AnchorPoint = Vector2.new(0.5, 1)
     }) Corner(Notification)
     
-    -- متغيرات لقياس الفريمات
+    -- متغيرات لقياس الفريمات والبينج
     local lastTick = 0
     local frameCount = 0
     local fps = 0
     
-    -- تحديث عدد اللاعبين والفريمات كل إطار
+    -- تحديث عدد اللاعبين والفريمات والبينج كل إطار
     game:GetService("RunService").Heartbeat:Connect(function()
         -- تحديث عدد اللاعبين
         PlayerStatsLabel.Text = "اللاعبين في السيرفر: " .. #game:GetService("Players"):GetPlayers()
@@ -1411,6 +1423,12 @@ function MakeWindow(Configs)
             lastTick = tick()
             FPSLabel.Text = "الفريمات: " .. fps
         end
+        
+        -- حساب البينج (Ping)
+        local stats = game:GetService("Stats")
+        local networkStats = stats.Network
+        local ping = math.floor(networkStats.ServerStatsItem["Data Ping"]:GetValue())
+        PingLabel.Text = "البينج (Ping): " .. ping .. "ms"
     end)
     
     local time = tick()
