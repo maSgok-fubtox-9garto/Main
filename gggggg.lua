@@ -1292,14 +1292,14 @@ function MakeWindow(Configs)
   end
   
                 
-                                 function AddDiscord(parent, Configs)
+                                     function AddDiscord(parent, Configs)
     local DiscordLink = Configs[1] or Configs.DiscordLink or "https://discord.gg/"
     local DiscordIcon = Configs[2] or Configs.DiscordIcon or "rbxassetid://"
     local DiscordTitle = Configs[3] or Configs.DiscordTitle or ""
     local LuckText = Configs[4] or Configs.LuckText or "كل شهر يغير المفتاح ادخل قبل لا يروح عليك" 
     
     local Frame = Create("Frame", parent, {
-        Size = UDim2.new(1, 0, 0, 225), -- زيادة الارتفاع لاستيعاب النصوص الجديدة
+        Size = UDim2.new(1, 0, 0, 225), 
         BackgroundColor3 = Color3.fromRGB(30, 30, 30),
         Name = "Frame",
         AutomaticSize = "Y"
@@ -1327,7 +1327,6 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
-    -- إضافة نص الحظ تحت العنوان
     local LuckLabel = Create("TextLabel", Frame, {
         Size = UDim2.new(1, -60, 0, 25),
         Text = LuckText,
@@ -1339,10 +1338,9 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
-    -- إضافة إحصائية عدد اللاعبين باللون الأخضر
     local PlayerStatsLabel = Create("TextLabel", Frame, {
         Size = UDim2.new(1, -60, 0, 25),
-        Text = "اللاعبين في السيرفر: " .. #game:GetService("Players"):GetPlayers(),
+        Text = "كم الاعب في السيرفر: " .. #game:GetService("Players"):GetPlayers(),
         TextXAlignment = "Left",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 60, 0, 75),
@@ -1351,7 +1349,6 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
-    -- إضافة إحصائية الفريمات (FPS) باللون الأخضر
     local FPSLabel = Create("TextLabel", Frame, {
         Size = UDim2.new(1, -60, 0, 25),
         Text = "الفريمات: 0",
@@ -1363,10 +1360,10 @@ function MakeWindow(Configs)
         TextSize = 14
     })
     
-    -- إضافة إحصائية البينج (Ping) باللون الأخضر
+
     local PingLabel = Create("TextLabel", Frame, {
         Size = UDim2.new(1, -60, 0, 25),
-        Text = "البينج (Ping): 0ms",
+        Text = "شكد نتك:ms0",
         TextXAlignment = "Left",
         BackgroundTransparency = 1,
         Position = UDim2.new(0, 60, 0, 125),
@@ -1404,18 +1401,14 @@ function MakeWindow(Configs)
         Visible = false,
         AnchorPoint = Vector2.new(0.5, 1)
     }) Corner(Notification)
-    
-    -- متغيرات لقياس الفريمات والبينج
+
     local lastTick = 0
     local frameCount = 0
     local fps = 0
     
-    -- تحديث عدد اللاعبين والفريمات والبينج كل إطار
     game:GetService("RunService").Heartbeat:Connect(function()
-        -- تحديث عدد اللاعبين
         PlayerStatsLabel.Text = "اللاعبين في السيرفر: " .. #game:GetService("Players"):GetPlayers()
         
-        -- حساب الفريمات
         frameCount = frameCount + 1
         if tick() - lastTick >= 1 then
             fps = math.floor(frameCount / (tick() - lastTick))
@@ -1424,11 +1417,10 @@ function MakeWindow(Configs)
             FPSLabel.Text = "الفريمات: " .. fps
         end
         
-        -- حساب البينج (Ping)
         local stats = game:GetService("Stats")
         local networkStats = stats.Network
         local ping = math.floor(networkStats.ServerStatsItem["Data Ping"]:GetValue())
-        PingLabel.Text = "البينج (Ping): " .. ping .. "ms"
+        PingLabel.Text =  (شكد نتك): " .. ping .. "ms"
     end)
     
     local time = tick()
